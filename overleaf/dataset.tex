@@ -1,0 +1,48 @@
+\section{Introduzione al Dataset}
+\label{sec:dataset-overview}
+
+Il dataset utilizzato nel presente studio è composto da 2111 osservazioni e 16 variabili esplicative, alle quali si aggiunge la variabile di risposta binaria \texttt{target}. Tale variabile distingue due gruppi di individui: il valore \texttt{1} identifica i soggetti classificati come \emph{Overweight Level I}, mentre il valore \texttt{0} aggrega tutte le rimanenti categorie di peso corporeo definite nella versione estesa del dataset originale (Insufficient Weight, Normal Weight, Overweight Level II, Obesity Type I, Obesity Type II e Obesity Type III).
+\newline
+\newline
+Il dataset nella versione originale contiene sette classi distinte di livello di obesità, etichettate sulla base dell’\emph{Indice di Massa Corporea} (BMI), calcolato tramite la formula:
+\[
+\text{BMI} = \frac{\text{Peso (kg)}}{\text{Altezza (m)}^2}
+\]
+e successivamente categorizzato secondo le linee guida dell’Organizzazione Mondiale della Sanità (OMS).
+\newline
+\newline
+La distribuzione delle etichette mostra una forte asimmetria: soltanto 290 osservazioni appartengono alla classe minoritaria (\texttt{1}), pari a circa il 13.7\% del totale, rendendo il dataset sensibilmente sbilanciato.
+\newline
+\newline
+Il dataset è pensato per essere utilizzato in molteplici compiti di data mining, tra cui classificazione, predizione, clustering e analisi delle associazioni, grazie alla presenza di attributi sia numerici sia categorici.
+
+\subsection{Features}
+Le variabili incluse nel dataset coprono aspetti anagrafici, comportamentali e relativi alle abitudini alimentari e allo stile di vita degli individui. La selezione delle feature deriva da un’analisi di letteratura sui fattori riconosciuti come associati all’insorgenza dell’obesità e ai rischi cardiovascolari. Di seguito si riporta un riepilogo delle feature, coerente con la struttura del questionario utilizzato per la raccolta dati:
+
+\begin{itemize}
+\item \textbf{Gender} (Categorica): genere dell’individuo; valori: \emph{Female}, \emph{Male}.
+\item \textbf{Age} (Continua): età in anni.
+\item \textbf{Height} (Continua): altezza in metri.
+\item \textbf{Weight} (Continua): peso in chilogrammi.
+\item \textbf{family\_history\_with\_overweight} (Binaria): presenza di casi di sovrappeso in famiglia; valori: \emph{yes}, \emph{no}.
+\item \textbf{FAVC} (Binaria): consumo frequente di cibi ad alto contenuto calorico; valori: \emph{yes}, \emph{no}.
+\item \textbf{FCVC} (Continua): frequenza di consumo di verdure durante i pasti.
+\item \textbf{NCP} (Continua): numero di pasti principali giornalieri.
+\item \textbf{CAEC} (Categorica): consumo di cibo tra un pasto e l’altro; valori: \emph{no}, \emph{Sometimes}, \emph{Frequently}, \emph{Always}.
+\item \textbf{SMOKE} (Binaria): abitudine al fumo; valori: \emph{yes}, \emph{no}.
+\item \textbf{CH2O} (Continua): quantità d’acqua consumata quotidianamente.
+\item \textbf{SCC} (Binaria): monitoraggio dell’assunzione calorica giornaliera; valori: \emph{yes}, \emph{no}.
+\item \textbf{FAF} (Continua): frequenza dell’attività fisica settimanale.
+\item \textbf{TUE} (Continua): tempo di utilizzo quotidiano di dispositivi tecnologici.
+\item \textbf{CALC} (Categorica): frequenza del consumo di alcolici; valori: \emph{no}, \emph{Sometimes}, \emph{Frequently}, \emph{Always}.
+\item \textbf{MTRANS} (Categorica): mezzo di trasporto maggiormente utilizzato; valori: \emph{Automobile}, \emph{Bike}, \emph{Motorbike}, \emph{Public\_Transportation}, \emph{Walking}.
+\end{itemize}
+
+\subsection{Processo di acquisizione dei dati}
+La raccolta iniziale dei dati è avvenuta tramite una piattaforma web, attraverso la quale utenti anonimi provenienti da Colombia, Perù e Messico hanno compilato un questionario sulle proprie abitudini alimentari e condizioni fisiche. In questa fase sono stati acquisiti 485 record, sui quali è stato condotto un processo di pulizia che ha comportato la rimozione di dati mancanti, anomali o non validi, oltre a una fase di normalizzazione necessaria per la successiva applicazione di tecniche di data mining.
+\newline
+\newline
+Poiché la distribuzione iniziale delle classi risultava fortemente sbilanciata (con alcune categorie dell’obesità scarsamente rappresentate), gli autori hanno applicato il metodo \emph{SMOTE} (Synthetic Minority Over-sampling Technique) tramite la piattaforma \emph{Weka} al fine di generare nuove osservazioni sintetiche nelle classi minoritarie.
+\newline
+\newline
+Dopo il bilanciamento, il dataset ha raggiunto l’attuale dimensione di 2111 record. La presenza di un’ampia componente sintetica (pari al 77\% del totale) è un elemento dichiarato dagli autori e va considerata nell’interpretazione dei risultati, poiché consente un miglior addestramento dei modelli ma introduce una struttura meno rappresentativa rispetto a un campionamento interamente naturale. Il dataset finale non presenta valori mancanti.

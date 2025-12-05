@@ -1,0 +1,67 @@
+\documentclass[a4paper,11pt]{article}
+
+% ----------------- PACCHETTI BASE -----------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+% Margini
+\geometry{
+    left=3cm,
+    right=3cm,
+    top=3cm,
+    bottom=3cm
+}
+
+% Spaziatura 1.5
+\onehalfspacing
+
+% Info documento (usate nel frontespizio)
+\newcommand{\Universita}{Università degli Studi di Salerno}
+\newcommand{\Dipartimento}{Dipartimento di Informatica}
+\newcommand{\Corso}{Statistica e Analisi dei Dati}
+\newcommand{\TitoloProgetto}{Analisi del Dataset UCI “Estimation of Obesity Levels Based on Eating Habits and Physical Condition”}
+\newcommand{\NomeStudente}{Salvatore Di Martino}
+\newcommand{\Matricola}{Matricola: NF22500114}
+\newcommand{\AnnoAccademico}{Anno Accademico 2025-2026}
+
+\begin{document}
+
+% ----------------- FRONTESPIZIO -----------------
+\input{frontespizio}
+
+% Numerazione delle pagine da qui in poi
+\setcounter{page}{1}
+
+% ----------------- INDICE -----------------
+\tableofcontents
+\newpage
+
+% ----------------- INTRODUZIONE -----------------
+\input{introduzione}
+
+% ----------------- OBIETTIVI -----------------
+\input{obiettivi}
+
+% ----------------- DATASET -----------------
+\input{dataset}
+
+% ----------------- ANALISI ESPLORATIVA -----------------
+\input{analisi_esplorativa}
+
+% ----------------- BIBLIOGRAFIA -----------------
+\newpage
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+
+\end{document}

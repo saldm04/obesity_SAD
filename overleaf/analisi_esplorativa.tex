@@ -1,0 +1,155 @@
+\section{Analisi esplorativa del dataset}
+\label{sec:analisi-esplorativa}
+\subsection{Preprocessing}
+Dopo l’importazione del dataset in R viene effettuata una fase preliminare di preprocessing per verificarne l’adeguatezza rispetto alle analisi successive. Il dataset non presenta valori mancanti, caratteristica confermata anche dopo il caricamento, e le variabili categoriche vengono automaticamente convertite in oggetti di tipo \texttt{factor}.
+Particolare attenzione è rivolta alle variabili \texttt{FAF}, \texttt{TUE}, \texttt{CH2O}, \texttt{FCVC} e \texttt{NCP}: pur essendo descritte come continue nella documentazione originale, esse derivano da scale a risposta chiusa con pochi livelli interi e vanno quindi interpretate come misure ordinali. Per preservare questa natura e mantenerne l’utilizzabilità nelle analisi descrittive, vengono trattate come variabili numeriche ordinali. Le variabili \texttt{Weight} e \texttt{Height}, invece, mantengono la loro forma continua originale senza necessità di trasformazioni.
+
+\subsection{Indici di sintesi}
+Gli indici di sintesi costituiscono strumenti fondamentali per riassumere in modo compatto l’informazione contenuta in un insieme di dati numerici. Il loro scopo è quello di facilitare la comprensione delle principali caratteristiche della distribuzione, riducendo la complessità del dataset a pochi valori significativi che ne rappresentano gli aspetti più rilevanti.
+\newline
+Porremo maggiore attenzione sulle feature \texttt{Age}, \texttt{Height} e \texttt{Weight}, siccome le altre feature numeriche derivano da scale a risposta chiusa con pochi livelli interi.
+\subsubsection{Indici di centralità}
+Le misure di centralità descrivono il punto attorno al quale i dati tendono a concentrarsi e forniscono quindi una prima indicazione sulla posizione della distribuzione. Di seguito si riporta la tabella \ref{tab:indici_di_centralità} relativa agli indici principali — valore minimo, massimo, media e mediana — calcolati sulle variabili numeriche del dataset.
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\hline
+\textbf{Variabile} & \textbf{Min} & \textbf{Max} & \textbf{Media} & \textbf{Mediana} \\
+\hline
+Age    & 14.000 & 61.000 & 24.316 & 23.000 \\
+Height & 1.450  & 1.980  & 1.702  & 1.700 \\
+Weight & 39.000 & 173.000 & 86.586 & 83.000 \\
+FCVC   & 1.000  & 3.000  & 2.423  & 2.000 \\
+NCP    & 1.000  & 4.000  & 2.688  & 3.000 \\
+CH2O   & 1.000  & 3.000  & 2.015  & 2.000 \\
+FAF    & 0.000  & 3.000  & 1.007  & 1.000 \\
+TUE    & 0.000  & 2.000  & 0.665  & 1.000 \\
+\hline
+\end{tabular}
+\caption{Statistiche descrittive univariate delle variabili numeriche.}
+\label{tab:indici_di_centralità}
+\end{table}
+\noindent La distribuzione della variabile \texttt{Age} mostra una coda verso destra, evidenziando una lieve asimmetria positiva: la media risulta infatti maggiore della mediana. Una dinamica analoga, seppur meno marcata, è riscontrabile anche per la variabile \texttt{Weight}. Al contrario, la variabile \texttt{Height} presenta media e mediana molto simili, suggerendo una distribuzione più simmetrica. Le Figure~\ref{fig:hist-age}, \ref{fig:hist-weight} e \ref{fig:hist-height} riportano gli istogrammi delle tre variabili, consentendo una visualizzazione immediata della forma delle loro distribuzioni. Oltre alla semplice ispezione grafica, è stata calcolata anche la \textit{skewness} come indice quantitativo di asimmetria, utile per valutare in modo oggettivo la presenza di code più o meno pronunciate rispetto alla media.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/diagrammi/HistAge.png}
+\caption{Istogramma della variabile \texttt{Age} - \textbf{Skewness 1,52}}
+\label{fig:hist-age}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/diagrammi/WeightHist.png}
+\caption{Istogramma della variabile \texttt{Weight} - \textbf{Skewness 0,26}}
+\label{fig:hist-weight}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/diagrammi/HeightHist.png}
+\caption{Istogramma della variabile \texttt{Height} - \textbf{Skewness -0,01}}
+\label{fig:hist-height}
+\end{figure}
+
+\subsubsection{Indici di dispersione}
+Gli indici di dispersione descrivono quanto i valori di una variabile si distanziano dal loro centro, integrando le misure di posizione con informazioni sulla variabilità interna dei dati. Essi permettono di valutare quanto una distribuzione sia concentrata o, al contrario, quanto presenti valori eterogenei.
+Nel presente studio sono stati considerati quattro indicatori principali: la varianza, che misura la dispersione quadratica rispetto alla media; la deviazione standard, sua radice quadrata e indice di più immediata interpretazione; il coefficiente di variazione (CV), che rapporta la deviazione standard alla media consentendo un confronto tra variabili con scale diverse; e infine lo scarto interquartile (IQR), che quantifica l’ampiezza della fascia centrale del 50\% dei dati, risultando meno sensibile alla presenza di valori anomali.
+La Tabella~\ref{tab:dispersione} riporta tali misure per le variabili \texttt{Age}, \texttt{Height} e \texttt{Weight}.
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\hline
+\textbf{Variabile} & \textbf{Varianza} & \textbf{Deviazione standard} & \textbf{CV} & \textbf{Scarto interquartile} \\
+\hline
+Age    & 40.412 & 6.357 & 0.261 & 6.000 \\
+Height & 0.009  & 0.093 & 0.055 & 0.138 \\
+Weight & 685.978 & 26.191 & 0.302 & 41.957 \\
+FCVC   & 0.341  & 0.584 & 0.241 & 1.000 \\
+NCP    & 0.656  & 0.810 & 0.301 & 0.000 \\
+CH2O   & 0.474  & 0.689 & 0.342 & 0.000 \\
+FAF    & 0.802  & 0.895 & 0.890 & 2.000 \\
+TUE    & 0.454  & 0.674 & 1.014 & 1.000 \\
+\hline
+\end{tabular}
+\caption{Indici di dispersione per le variabili numeriche del dataset.}
+\label{tab:dispersione}
+\end{table}
+\noindent La variabilità risulta particolarmente elevata per la variabile \texttt{Weight}, che presenta una deviazione standard pari a 26,19 kg e un coefficiente di variazione vicino al 30\%, indicando una dispersione relativamente ampia dei valori attorno alla media. Anche la variabile \texttt{Age} mostra una variabilità moderata, con una deviazione standard di 6,36 anni e un CV di circa il 26\%, segnalando una distribuzione dei valori meno concentrata rispetto all’altezza ma comunque non eccessivamente dispersa.
+Al contrario, la variabile \texttt{Height} evidenzia una variabilità molto ridotta: la deviazione standard è pari a 0,09 metri (circa 9 cm) e il coefficiente di variazione si attesta intorno al 5,5\%. Anche lo scarto interquartile, pari a 0,14 metri (circa 14 cm), conferma la maggiore omogeneità dei valori. Tali valori numericamente contenuti derivano dal fatto che l’altezza è espressa in metri; tuttavia, il coefficiente di variazione, essendo un indice adimensionale che mette in relazione deviazione standard e media, fornisce comunque una misura coerente e comparabile della reale variabilità della distribuzione.
+
+\subsection{Barplot}
+Per le restanti caratteristiche, costituite da variabili categoriche e da variabili numeriche che derivano da scale ordinali a pochi livelli, risulta particolarmente utile analizzare la distribuzione delle frequenze mediante rappresentazioni grafiche a barre.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/gender.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/family_history_with_overweight.png}
+  \caption{Barplot delle variabili \texttt{Gender} e \texttt{family\_history\_with\_overweight}.}
+  \label{fig:barplot_gender_family}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/target.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/favc.png}
+  \caption{Barplot delle variabili \texttt{target} e \texttt{FAVC}.}
+  \label{fig:barplot_target_favc}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/caec.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/smoke.png}
+  \caption{Barplot delle variabili \texttt{CAEC} e \texttt{SMOKE}.}
+  \label{fig:barplot_caec_smoke}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/scc.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/calc.png}
+  \caption{Barplot delle variabili \texttt{SCC} e \texttt{CALC}.}
+  \label{fig:barplot_scc_calc}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/mtrans.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/fcvc.png}
+  \caption{Barplot delle variabili \texttt{MTRANS} e \texttt{FCVC}.}
+  \label{fig:barplot_mtrans_fcvc}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/ncp.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/ch2o.png}
+  \caption{Barplot delle variabili \texttt{NCP} e \texttt{CH2O}.}
+  \label{fig:barplot_ncp_ch2o}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/faf.png}
+  \includegraphics[width=0.45\textwidth]{img/diagrammi/tue.png}
+  \caption{Barplot delle variabili \texttt{FAF} e \texttt{TUE}.}
+  \label{fig:barplot_faf_tue}
+\end{figure}
+\noindent Un aspetto preliminare di rilievo riguarda la variabile \texttt{Gender}: nel dataset il numero di uomini e donne risulta pressoché bilanciato, garantendo una buona rappresentatività rispetto al genere. Per quanto concerne le restanti caratteristiche categoriche e ordinali, emergono pattern comportamentali piuttosto marcati nel campione analizzato. In particolare:
+\begin{itemize}
+    \item l'88\% degli individui dichiara di consumare frequentemente cibi ad alto contenuto calorico;
+    \item l'84\% consuma regolarmente spuntini tra un pasto e l'altro;
+    \item il 98\% non fuma;
+    \item il 95\% non monitora l'assunzione calorica giornaliera;
+    \item il 97\% riferisce di non consumare alcol o di consumarlo solo saltuariamente;
+    \item il 96\% utilizza come principale mezzo di trasporto l'automobile o i trasporti pubblici;
+    \item il 5\% non consuma verdure durante i pasti;
+    \item il 70\% afferma di effettuare tre pasti principali al giorno;
+    \item il 53\% beve quotidianamente tra 1 e 2 litri d'acqua;
+    \item il 34\% non pratica attività fisica settimanale;
+    \item il 12\% utilizza dispositivi tecnologici per più di cinque ore al giorno.
+\end{itemize}
+Queste osservazioni, supportate dai barplot riportati nelle figure, offrono una
+panoramica immediata delle abitudini alimentari e comportamentali del campione e
+costituiscono la base per possibili interpretazioni successive riguardo ai legami con il
+livello di obesità.
