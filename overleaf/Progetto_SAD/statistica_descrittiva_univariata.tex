@@ -1,9 +1,5 @@
-\section{Analisi esplorativa del dataset}
-\label{sec:analisi-esplorativa}
-\subsection{Preprocessing}
-Dopo l’importazione del dataset in R viene effettuata una fase preliminare di preprocessing per verificarne l’adeguatezza rispetto alle analisi successive. Il dataset non presenta valori mancanti, caratteristica confermata anche dopo il caricamento, e le variabili categoriche vengono automaticamente convertite in oggetti di tipo \texttt{factor}.
-Particolare attenzione è rivolta alle variabili \texttt{FAF}, \texttt{TUE}, \texttt{CH2O}, \texttt{FCVC} e \texttt{NCP}: pur essendo descritte come continue nella documentazione originale, esse derivano da scale a risposta chiusa con pochi livelli interi e vanno quindi interpretate come misure ordinali. Per preservare questa natura e mantenerne l’utilizzabilità nelle analisi descrittive, vengono trattate come variabili numeriche ordinali. Le variabili \texttt{Weight} e \texttt{Height}, invece, mantengono la loro forma continua originale senza necessità di trasformazioni.
-
+\section{Statistica descrittiva univariata}
+\label{sec:statistica_descrittiva_univariata}
 \subsection{Indici di sintesi}
 Gli indici di sintesi costituiscono strumenti fondamentali per riassumere in modo compatto l’informazione contenuta in un insieme di dati numerici. Il loro scopo è quello di facilitare la comprensione delle principali caratteristiche della distribuzione, riducendo la complessità del dataset a pochi valori significativi che ne rappresentano gli aspetti più rilevanti.
 \newline
@@ -29,25 +25,25 @@ TUE    & 0.000  & 2.000  & 0.665  & 1.000 \\
 \caption{Statistiche descrittive univariate delle variabili numeriche.}
 \label{tab:indici_di_centralità}
 \end{table}
-\noindent La distribuzione della variabile \texttt{Age} mostra una coda verso destra, evidenziando una lieve asimmetria positiva: la media risulta infatti maggiore della mediana. Una dinamica analoga, seppur meno marcata, è riscontrabile anche per la variabile \texttt{Weight}. Al contrario, la variabile \texttt{Height} presenta media e mediana molto simili, suggerendo una distribuzione più simmetrica. Le Figure~\ref{fig:hist-age}, \ref{fig:hist-weight} e \ref{fig:hist-height} riportano gli istogrammi delle tre variabili, consentendo una visualizzazione immediata della forma delle loro distribuzioni. Oltre alla semplice ispezione grafica, è stata calcolata anche la \textit{skewness} come indice quantitativo di asimmetria, utile per valutare in modo oggettivo la presenza di code più o meno pronunciate rispetto alla media.
+\noindent La distribuzione della variabile \texttt{Age} mostra una coda verso destra, evidenziando una forte asimmetria positiva: la media risulta infatti maggiore della mediana. Una dinamica analoga, seppur meno marcata, è riscontrabile anche per la variabile \texttt{Weight}. Al contrario, la variabile \texttt{Height} presenta media e mediana molto simili, suggerendo una distribuzione più simmetrica. Le Figure~\ref{fig:hist-age}, \ref{fig:hist-weight} e \ref{fig:hist-height} riportano gli istogrammi delle tre variabili, consentendo una visualizzazione immediata della forma delle loro distribuzioni. Oltre alla semplice ispezione grafica, è stata calcolata anche la \textit{skewness} come indice quantitativo di asimmetria, utile per valutare in modo oggettivo la presenza di code più o meno pronunciate rispetto alla media.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm]{img/diagrammi/HistAge.png}
+\includegraphics[width=10.3cm]{img/diagrammi/HistAge.png}
 \caption{Istogramma della variabile \texttt{Age} - \textbf{Skewness 1,52}}
 \label{fig:hist-age}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm]{img/diagrammi/WeightHist.png}
+\includegraphics[width=10.3cm]{img/diagrammi/WeightHist.png}
 \caption{Istogramma della variabile \texttt{Weight} - \textbf{Skewness 0,26}}
 \label{fig:hist-weight}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm]{img/diagrammi/HeightHist.png}
+\includegraphics[width=10.3cm]{img/diagrammi/HeightHist.png}
 \caption{Istogramma della variabile \texttt{Height} - \textbf{Skewness -0,01}}
 \label{fig:hist-height}
 \end{figure}
@@ -149,7 +145,86 @@ Per le restanti caratteristiche, costituite da variabili categoriche e da variab
     \item il 34\% non pratica attività fisica settimanale;
     \item il 12\% utilizza dispositivi tecnologici per più di cinque ore al giorno.
 \end{itemize}
-Queste osservazioni, supportate dai barplot riportati nelle figure, offrono una
-panoramica immediata delle abitudini alimentari e comportamentali del campione e
-costituiscono la base per possibili interpretazioni successive riguardo ai legami con il
-livello di obesità.
+Queste osservazioni, supportate dai barplot riportati nelle figure, offrono una panoramica immediata delle abitudini alimentari e comportamentali del campione e costituiscono la base per possibili interpretazioni successive riguardo ai legami con il livello di obesità.
+
+
+\subsection{Quartili e boxplot}
+I quartili rappresentano valori di soglia che suddividono una distribuzione ordinata in quattro parti di uguale numerosità. In particolare, il primo quartile (Q1) individua il punto sotto il quale si colloca il 25\% delle osservazioni, la mediana coincide con il secondo quartile (Q2) e delimita il 50\% dei valori inferiori, mentre il terzo quartile (Q3) separa il 75\% dei dati dal restante 25\%. La differenza tra Q3 e Q1 definisce lo \textit{scarto interquartile} (Interquartile Range, IQR), misura particolarmente robusta della dispersione, poiché poco influenzata dai valori anomali.
+\newline
+Il boxplot, o diagramma a scatola, costituisce una rappresentazione sintetica ed efficace di questi elementi: la scatola racchiude l'intervallo interquartile compreso tra Q1 e Q3, la linea interna rappresenta la mediana, mentre le estremità dei cosiddetti \textit{baffi} si estendono fino ai valori più estremi non considerati outlier (tipicamente definiti come osservazioni entro 1.5 volte l’IQR dai quartili). I punti al di fuori di tale intervallo vengono riportati graficamente come outlier e segnalano la presenza di valori particolarmente distanti dalla struttura centrale dei dati.
+\newline
+Di seguito analizziamo i boxplot delle variabili \texttt{Age}, \texttt{Height} e \texttt{Weight}, al fine di evidenziare eventuali outlier e possibili forme di asimmetria.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/diagrammi/box_age_uni.png}
+  \caption{Boxplot della variabile \texttt{Age}}
+  \label{fig:boxplot_age_uni}
+\end{figure}
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{} & \textbf{Age} \\
+\hline
+Estremo baffo inferiore & 14 \\
+Q1 & 20 \\
+Mediana & 23 \\
+Q3 & 26 \\
+Estremo baffo superiore & 35 \\
+\hline
+\end{tabular}
+\caption{Statistiche di posizione per l'età}
+\label{tab:age_quartiles}
+\end{table}
+\noindent Il boxplot della variabile \texttt{Age} evidenzia una marcata asimmetria positiva, già osservata tramite gli istogrammi: la presenza di numerosi outlier sulla coda destra segnala una concentrazione di valori estremamente elevati rispetto al resto della distribuzione.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/diagrammi/box_height_uni.png}
+  \caption{Boxplot della variabile \texttt{Height}}
+  \label{fig:boxplot_height_uni}
+\end{figure}
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{} & \textbf{Height} \\
+\hline
+Estremo baffo inferiore & 1.45 \\
+Q1 & 1.63 \\
+Mediana & 1.70 \\
+Q3 & 1.77 \\
+Estremo baffo superiore & 1.98 \\
+\hline
+\end{tabular}
+\caption{Statistiche di posizione per l'altezza}
+\label{tab:height_quartiles}
+\end{table}
+\noindent La variabile \texttt{Height} mostra una distribuzione sostanzialmente simmetrica: i baffi presentano lunghezze molto simili e si osserva un solo outlier, indicativo di un valore isolato ma non influente sulla struttura complessiva dei dati.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/diagrammi/box_weight_uni.png}
+  \caption{Boxplot della variabile \texttt{Weight}}
+  \label{fig:boxplot_weight_uni}
+\end{figure}
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{} & \textbf{Weight} \\
+\hline
+Estremo baffo inferiore & 39 \\
+Q1 & 65.47 \\
+Mediana & 83 \\
+Q3 & 107.43 \\
+Estremo baffo superiore & 165.06 \\
+\hline
+\end{tabular}
+\caption{Statistiche di posizione per il peso}
+\label{tab:weight_quartiles}
+\end{table}
+\noindent Il boxplot della variabile \texttt{Weight} mette in evidenza una leggera asimmetria positiva: il baffo superiore risulta più lungo di quello inferiore e l’IQR è più esteso nella parte superiore della distribuzione (Q3–Mediana > Mediana–Q1). È inoltre presente un singolo outlier, che non altera sostanzialmente l’interpretazione generale della variabile.
+
+\newpage

@@ -13,7 +13,6 @@ e successivamente categorizzato secondo le linee guida dell’Organizzazione Mon
 \newline
 La distribuzione delle etichette mostra una forte asimmetria: soltanto 290 osservazioni appartengono alla classe minoritaria (\texttt{1}), pari a circa il 13.7\% del totale, rendendo il dataset sensibilmente sbilanciato.
 \newline
-\newline
 Il dataset è pensato per essere utilizzato in molteplici compiti di data mining, tra cui classificazione, predizione, clustering e analisi delle associazioni, grazie alla presenza di attributi sia numerici sia categorici.
 
 \subsection{Features}
@@ -26,14 +25,14 @@ Le variabili incluse nel dataset coprono aspetti anagrafici, comportamentali e r
 \item \textbf{Weight} (Continua): peso in chilogrammi.
 \item \textbf{family\_history\_with\_overweight} (Binaria): presenza di casi di sovrappeso in famiglia; valori: \emph{yes}, \emph{no}.
 \item \textbf{FAVC} (Binaria): consumo frequente di cibi ad alto contenuto calorico; valori: \emph{yes}, \emph{no}.
-\item \textbf{FCVC} (Continua): frequenza di consumo di verdure durante i pasti.
-\item \textbf{NCP} (Continua): numero di pasti principali giornalieri.
+\item \textbf{FCVC} (Continua): frequenza di consumo di verdure durante i pasti; valori: \emph{never - 0}, \emph{sometimes - 1}, \emph{always - 2}.
+\item \textbf{NCP} (Continua): numero di pasti principali giornalieri; valori: \emph{One - 1}, \emph{Two - 2}, \emph{Three - 3}, \emph{More than three - 4}.
 \item \textbf{CAEC} (Categorica): consumo di cibo tra un pasto e l’altro; valori: \emph{no}, \emph{Sometimes}, \emph{Frequently}, \emph{Always}.
 \item \textbf{SMOKE} (Binaria): abitudine al fumo; valori: \emph{yes}, \emph{no}.
-\item \textbf{CH2O} (Continua): quantità d’acqua consumata quotidianamente.
+\item \textbf{CH2O} (Continua): quantità d’acqua consumata quotidianamente; valori: \emph{Less than a liter - 1}, \emph{Between 1 and 2L - 2}, \emph{More than 2L - 3}.
 \item \textbf{SCC} (Binaria): monitoraggio dell’assunzione calorica giornaliera; valori: \emph{yes}, \emph{no}.
-\item \textbf{FAF} (Continua): frequenza dell’attività fisica settimanale.
-\item \textbf{TUE} (Continua): tempo di utilizzo quotidiano di dispositivi tecnologici.
+\item \textbf{FAF} (Continua): frequenza dell’attività fisica settimanale; valori: \emph{I do not have - 0}, \emph{1 or 2 days - 1}, \emph{2 or 4 days - 2}, \emph{4 or 5 days - 3}.
+\item \textbf{TUE} (Continua): tempo di utilizzo quotidiano di dispositivi tecnologici; valori: \emph{0-2 hours - 0}, \emph{3-5 hours - 1}, \emph{More than 5 hours - 2}.
 \item \textbf{CALC} (Categorica): frequenza del consumo di alcolici; valori: \emph{no}, \emph{Sometimes}, \emph{Frequently}, \emph{Always}.
 \item \textbf{MTRANS} (Categorica): mezzo di trasporto maggiormente utilizzato; valori: \emph{Automobile}, \emph{Bike}, \emph{Motorbike}, \emph{Public\_Transportation}, \emph{Walking}.
 \end{itemize}
@@ -41,8 +40,10 @@ Le variabili incluse nel dataset coprono aspetti anagrafici, comportamentali e r
 \subsection{Processo di acquisizione dei dati}
 La raccolta iniziale dei dati è avvenuta tramite una piattaforma web, attraverso la quale utenti anonimi provenienti da Colombia, Perù e Messico hanno compilato un questionario sulle proprie abitudini alimentari e condizioni fisiche. In questa fase sono stati acquisiti 485 record, sui quali è stato condotto un processo di pulizia che ha comportato la rimozione di dati mancanti, anomali o non validi, oltre a una fase di normalizzazione necessaria per la successiva applicazione di tecniche di data mining.
 \newline
-\newline
 Poiché la distribuzione iniziale delle classi risultava fortemente sbilanciata (con alcune categorie dell’obesità scarsamente rappresentate), gli autori hanno applicato il metodo \emph{SMOTE} (Synthetic Minority Over-sampling Technique) tramite la piattaforma \emph{Weka} al fine di generare nuove osservazioni sintetiche nelle classi minoritarie.
 \newline
-\newline
 Dopo il bilanciamento, il dataset ha raggiunto l’attuale dimensione di 2111 record. La presenza di un’ampia componente sintetica (pari al 77\% del totale) è un elemento dichiarato dagli autori e va considerata nell’interpretazione dei risultati, poiché consente un miglior addestramento dei modelli ma introduce una struttura meno rappresentativa rispetto a un campionamento interamente naturale. Il dataset finale non presenta valori mancanti.
+\subsection{Preprocessing}
+Dopo l’importazione del dataset in R viene effettuata una fase preliminare di preprocessing per verificarne l’adeguatezza rispetto alle analisi successive. Il dataset non presenta valori mancanti, caratteristica confermata anche dopo il caricamento, e le variabili categoriche vengono automaticamente convertite in oggetti di tipo \texttt{factor}.
+Particolare attenzione è rivolta alle variabili \texttt{FAF}, \texttt{TUE}, \texttt{CH2O}, \texttt{FCVC} e \texttt{NCP}: pur essendo descritte come continue nella documentazione originale, esse derivano da scale a risposta chiusa con pochi livelli interi e vanno quindi interpretate come misure ordinali. Per preservare questa natura e mantenerne l’utilizzabilità nelle analisi descrittive, vengono trattate come variabili numeriche ordinali. Le variabili \texttt{Weight} e \texttt{Height}, invece, mantengono la loro forma continua originale senza necessità di trasformazioni.
+\newpage

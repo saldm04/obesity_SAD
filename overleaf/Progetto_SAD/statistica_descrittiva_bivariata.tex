@@ -1,0 +1,80 @@
+\section{Statistica descrittiva bivariata}
+\label{sec:statistica_descrittiva_bivariata}
+\subsection{Categoriche e numeriche ???}
+Nel presente studio utilizziamo i boxplot per esaminare la distribuzione delle variabili \texttt{Age}, \texttt{Height} e \texttt{Weight} in funzione del genere, al fine di confrontare rapidamente le differenze tra uomini e donne e rilevare eventuali asimmetrie, valori anomali o variazioni nella dispersione.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/diagrammi/BoxAgeBi.png}
+  \caption{Boxplot della variabile \texttt{Age} in funzione del sesso}
+  \label{fig:boxplot_age}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{} & \textbf{Female} & \textbf{Male} \\
+\hline
+Estremo baffo inferiore & 15 & 14 \\
+Q1 & 20 & 20 \\
+Mediana  & 22 & 23 \\
+Q3 & 26 & 28 \\
+Estremo baffo superiore & 35 & 40 \\
+\hline
+\end{tabular}
+\caption{Statistiche di posizione per l'età in funzione del sesso}
+\label{tab:age_quartiles_gender_bi}
+\end{table}
+\noindent Per la variabile \texttt{Age}, uomini e donne presentano valori molto simili per quanto riguarda il baffo inferiore, il primo quartile e la mediana. Le differenze emergono nella parte superiore della distribuzione: il terzo quartile e il baffo superiore risultano leggermente più elevati negli uomini, suggerendo una tendenza a età mediamente maggiori. In entrambi i gruppi il baffo superiore è più lungo di quello inferiore e il numero consistente di outlier superiori conferma la forte asimmetria positiva già evidenziata precedentemente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/diagrammi/BoxHeightBi.png}
+  \caption{Boxplot della variabile \texttt{Height} in funzione del sesso}
+  \label{fig:boxplot_height_bi}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{} & \textbf{Female} & \textbf{Male} \\
+\hline
+Estremo baffo inferiore & 1.45 & 1.56 \\
+Q1 & 1.59 & 1.71 \\
+Mediana  & 1.64 & 1.76 \\
+Q3 & 1.70 & 1.81 \\
+Estremo baffo superiore & 1.84 & 1.95 \\
+\hline
+\end{tabular}
+\caption{Statistiche di posizione per l'altezza in funzione del sesso}
+\label{tab:height_quartiles_gender}
+\end{table}
+\noindent Per la variabile \texttt{Height} emergono differenze nette tra uomini e donne. L'intera distribuzione maschile risulta traslata verso valori più elevati, come atteso dal punto di vista fisiologico, con quartili e mediana sistematicamente maggiori. L’unica presenza di outlier riguarda due individui nella popolazione maschile, mentre la distribuzione femminile appare più compatta e priva di valori anomali.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/diagrammi/BoxWeightBi.png}
+  \caption{Boxplot della variabile \texttt{Weight} in funzione del sesso}
+  \label{fig:boxplot_weight_bi}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{} & \textbf{Female} & \textbf{Male} \\
+\hline
+Estremo baffo inferiore & 39 & 45 \\
+Q1 & 58 & 75 \\
+Mediana  & 78 & 89.95 \\
+Q3       & 105.04 & 108.51 \\
+Estremo baffo superiore & 165.06 & 130 \\
+\hline
+\end{tabular}
+\caption{Statistiche di posizione per il peso in funzione del sesso}
+\label{tab:weight_quartiles_gender}
+\end{table}
+\noindent Per quanto riguarda la variabile \texttt{Weight}, la distribuzione maschile appare più concentrata, con un intervallo interquartile più contenuto, sebbene i valori centrali (Q1, mediana, Q3) risultino più elevati rispetto a quelli femminili. Le donne presentano invece una maggiore variabilità: l’IQR è più ampio e il baffo superiore significativamente più esteso indica la presenza di soggetti con peso particolarmente elevato, coerente con la possibile presenza di condizioni di obesità nella coda superiore della distribuzione. L’unico outlier rilevato si trova nel gruppo maschile.
+\newpage
